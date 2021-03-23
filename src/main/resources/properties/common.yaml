@@ -1,0 +1,3 @@
+applicationmsgs:
+  request-start: "Request process started"
+  request-end: "Request process ended"

@@ -1,0 +1,37 @@
+#%RAML 1.0 SecurityScheme
+#=======================================================================
+# Standard OAUTH 2.0 Authentication Security Scheme
+# SecuritySchemes/standard-security-scheme.raml
+# Date   : April 16, 2020
+# Author : BKWON
+# Rev    : 1
+#
+#  Audit History:
+#
+#   Rev Who   Date        Description
+#   --- ---   ----------- ----------------------------------------------
+#   001 BYK   16-Mar-2020 Initial creation
+#=======================================================================
+type: OAuth 2.0
+describedBy:
+  queryParameters:
+    access_token:
+      description: |
+          Used to send a valid OAuth 2 access token.
+      type: string
+  responses:
+    400:
+      description: Invalid token.
+    401:
+      description: |
+        Unauthorized or Connection error when connecting to the authorization server.
+    403:
+      description: |
+        Forbidden, invalid client application credentials.
+    500:
+      description: |
+        Bad response from authorization server, or WSDL SOAP Fault error.
+settings:
+  authorizationUri: https://myfox.okta.com/oauth2/aus2ydycaf64e3D2c357/v1/authorize
+  accessTokenUri: https://myfox.okta.com/oauth2/aus2ydycaf64e3D2c357/v1/token
+  authorizationGrants: client_credentials

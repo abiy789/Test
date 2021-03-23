@@ -1,0 +1,36 @@
+#%RAML 1.0 Library
+#=======================================================================
+# Generic API Response Body
+# CommonTypes/generic-response-body.raml
+# Date   : February 05, 2020
+# Author : RIEDEL
+# Rev    : 1
+#
+#  Audit History:
+#
+#   Rev Who   Date        Description
+#   --- ---   ----------- ----------------------------------------------
+#   001 RAR   05-Feb-2020 Initial creation
+#   002 SAN  06-Jun-2020 Optional Details section added
+#=======================================================================
+
+types:
+  GenericResponseBody:
+    description: A generic type used for many simple responses, including errors
+    type: object
+    properties:
+      status:
+        description: A status value. Always "2**"" on success, or another defined http.status
+        type: string
+      message:
+        description: An explanatory message
+        type: string
+      details:
+        description: Error summary return by the target system
+        type: string
+        required: false
+      x-correlation-id:
+        description: Mulesoft Correlation id
+        type: string
+        required: false
+    

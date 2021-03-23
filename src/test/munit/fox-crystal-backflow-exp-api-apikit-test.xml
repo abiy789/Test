@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd http://www.mulesoft.org/schema/mule/munit-tools http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd 
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+    <munit:config name="fox-crystal-backflow-exp-api-apikit-test.xml" />
+    <http:request-config name="HTTP_Request_Configuration_Munit" basePath="/api">
+        <http:request-connection host="localhost" port="8092" protocol="HTTPS">
+			<tls:context >
+				<tls:key-store type="jceks" keyPassword="${secure::tls.keyPassword}" path="truststore/mykeystore.jks" password="${secure::tls.password}"/>
+			</tls:context>
+		</http:request-connection>
+    </http:request-config>
+    <munit:test name="post:\schedules:application\json:fox-crystal-backflow-exp-api-config-202-application\json-FlowTest" description="Verifying functionality of [post:\schedules:application\json:fox-crystal-backflow-exp-api-config-202-application\json]" ignore="true">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="post:\schedules:application\json:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:behavior>
+            <set-payload value="#[MunitTools::getResourceAsString('scaffolder/request/post_schedules_application_json.json')]" />
+        </munit:behavior>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="POST" path="/schedules">
+                <http:headers><![CDATA[#[{"Accept":"application/json","Content-Type":"application/json"}]]]></http:headers>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(202)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 202" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/post_202_schedules_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="post:\schedules:application\json:fox-crystal-backflow-exp-api-config-400-application\json-FlowTest" description="Verifying functionality of [post:\schedules:application\json:fox-crystal-backflow-exp-api-config-400-application\json]" ignore="true">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="post:\schedules:application\json:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:behavior>
+            <set-payload value="#[MunitTools::getResourceAsString('scaffolder/request/post_schedules_application_json.json')]" />
+        </munit:behavior>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="POST" path="/schedules">
+                <http:headers><![CDATA[#[{"Accept":"application/json","Content-Type":"application/json"}]]]></http:headers>
+                <http:response-validator>
+                    <http:success-status-code-validator values="400" />
+                </http:response-validator>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(400)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 400" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/post_400_schedules_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="post:\schedules:application\json:fox-crystal-backflow-exp-api-config-401-application\json-FlowTest" description="Verifying functionality of [post:\schedules:application\json:fox-crystal-backflow-exp-api-config-401-application\json]" ignore="true">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="post:\schedules:application\json:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:behavior>
+            <set-payload value="#[MunitTools::getResourceAsString('scaffolder/request/post_schedules_application_json.json')]" />
+        </munit:behavior>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="POST" path="/schedules">
+                <http:headers><![CDATA[#[{"Accept":"application/json","Content-Type":"application/json"}]]]></http:headers>
+                <http:response-validator>
+                    <http:success-status-code-validator values="401" />
+                </http:response-validator>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(401)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 401" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/post_401_schedules_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="post:\schedules:application\json:fox-crystal-backflow-exp-api-config-403-application\json-FlowTest" description="Verifying functionality of [post:\schedules:application\json:fox-crystal-backflow-exp-api-config-403-application\json]" ignore="true">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="post:\schedules:application\json:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:behavior>
+            <set-payload value="#[MunitTools::getResourceAsString('scaffolder/request/post_schedules_application_json.json')]" />
+        </munit:behavior>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="POST" path="/schedules">
+                <http:headers><![CDATA[#[{"Accept":"application/json","Content-Type":"application/json"}]]]></http:headers>
+                <http:response-validator>
+                    <http:success-status-code-validator values="403" />
+                </http:response-validator>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(403)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 403" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/post_403_schedules_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="post:\schedules:application\json:fox-crystal-backflow-exp-api-config-404-application\json-FlowTest" description="Verifying functionality of [post:\schedules:application\json:fox-crystal-backflow-exp-api-config-404-application\json]" ignore="true">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="post:\schedules:application\json:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:behavior>
+            <set-payload value="#[MunitTools::getResourceAsString('scaffolder/request/post_schedules_application_json.json')]" />
+        </munit:behavior>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="POST" path="/schedules">
+                <http:headers><![CDATA[#[{"Accept":"application/json","Content-Type":"application/json"}]]]></http:headers>
+                <http:response-validator>
+                    <http:success-status-code-validator values="404" />
+                </http:response-validator>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(404)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 404" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/post_404_schedules_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="post:\schedules:application\json:fox-crystal-backflow-exp-api-config-405-application\json-FlowTest" description="Verifying functionality of [post:\schedules:application\json:fox-crystal-backflow-exp-api-config-405-application\json]" ignore="true">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="post:\schedules:application\json:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:behavior>
+            <set-payload value="#[MunitTools::getResourceAsString('scaffolder/request/post_schedules_application_json.json')]" />
+        </munit:behavior>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="POST" path="/schedules">
+                <http:headers><![CDATA[#[{"Accept":"application/json","Content-Type":"application/json"}]]]></http:headers>
+                <http:response-validator>
+                    <http:success-status-code-validator values="405" />
+                </http:response-validator>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(405)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 405" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/post_405_schedules_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="post:\schedules:application\json:fox-crystal-backflow-exp-api-config-406-application\json-FlowTest" description="Verifying functionality of [post:\schedules:application\json:fox-crystal-backflow-exp-api-config-406-application\json]" ignore="true">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="post:\schedules:application\json:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:behavior>
+            <set-payload value="#[MunitTools::getResourceAsString('scaffolder/request/post_schedules_application_json.json')]" />
+        </munit:behavior>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="POST" path="/schedules">
+                <http:headers><![CDATA[#[{"Accept":"application/json","Content-Type":"application/json"}]]]></http:headers>
+                <http:response-validator>
+                    <http:success-status-code-validator values="406" />
+                </http:response-validator>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(406)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 406" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/post_406_schedules_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="post:\schedules:application\json:fox-crystal-backflow-exp-api-config-415-application\json-FlowTest" description="Verifying functionality of [post:\schedules:application\json:fox-crystal-backflow-exp-api-config-415-application\json]" ignore="true">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="post:\schedules:application\json:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:behavior>
+            <set-payload value="#[MunitTools::getResourceAsString('scaffolder/request/post_schedules_application_json.json')]" />
+        </munit:behavior>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="POST" path="/schedules">
+                <http:headers><![CDATA[#[{"Accept":"application/json","Content-Type":"application/json"}]]]></http:headers>
+                <http:response-validator>
+                    <http:success-status-code-validator values="415" />
+                </http:response-validator>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(415)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 415" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/post_415_schedules_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="post:\schedules:application\json:fox-crystal-backflow-exp-api-config-500-application\json-FlowTest" description="Verifying functionality of [post:\schedules:application\json:fox-crystal-backflow-exp-api-config-500-application\json]" ignore="true">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="post:\schedules:application\json:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:behavior>
+            <set-payload value="#[MunitTools::getResourceAsString('scaffolder/request/post_schedules_application_json.json')]" />
+        </munit:behavior>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="POST" path="/schedules">
+                <http:headers><![CDATA[#[{"Accept":"application/json","Content-Type":"application/json"}]]]></http:headers>
+                <http:response-validator>
+                    <http:success-status-code-validator values="500" />
+                </http:response-validator>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(500)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 500" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/post_500_schedules_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="post:\schedules:application\json:fox-crystal-backflow-exp-api-config-599-application\json-FlowTest" description="Verifying functionality of [post:\schedules:application\json:fox-crystal-backflow-exp-api-config-599-application\json]" ignore="true">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="post:\schedules:application\json:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:behavior>
+            <set-payload value="#[MunitTools::getResourceAsString('scaffolder/request/post_schedules_application_json.json')]" />
+        </munit:behavior>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="POST" path="/schedules">
+                <http:headers><![CDATA[#[{"Accept":"application/json","Content-Type":"application/json"}]]]></http:headers>
+                <http:response-validator>
+                    <http:success-status-code-validator values="599" />
+                </http:response-validator>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(599)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 599" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/post_599_schedules_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="get:\healthcheck:fox-crystal-backflow-exp-api-config-200-application\json-FlowTest" description="Verifying functionality of [get:\healthcheck:fox-crystal-backflow-exp-api-config-200-application\json]" ignore="true">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="get:\healthcheck:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="GET" path="/healthcheck">
+                <http:headers><![CDATA[#[{"Accept":"application/json"}]]]></http:headers>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(200)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 200" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/get_200_healthcheck_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="get:\ping:fox-crystal-backflow-exp-api-config-200-application\json-FlowTest" description="Verifying functionality of [get:\ping:fox-crystal-backflow-exp-api-config-200-application\json]">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="fox-crystal-backflow-exp-api-main" />
+            <munit:enable-flow-source value="get:\ping:fox-crystal-backflow-exp-api-config" />
+        </munit:enable-flow-sources>
+        <munit:execution>
+            <http:request config-ref="HTTP_Request_Configuration_Munit" method="GET" path="/ping" followRedirects="true" sendBodyMode="AUTO" requestStreamingMode="AUTO" responseTimeout="120000">
+                <http:headers><![CDATA[#[{"Accept":"application/json"}]]]></http:headers>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(200)]" message="The HTTP Status code is not correct!" doc:name="Assert That Status Code is 200" />
+            <munit-tools:assert-that expression="#[output application/java ---write(payload, 'application/json') as String]" is="#[MunitTools::equalTo(MunitTools::getResourceAsString('scaffolder/response/get_200_ping_application_json.json'))]" message="The response payload is not correct!" doc:name="Assert That - Payload is Expected" />
+        </munit:validation>
+    </munit:test>
+</mule>

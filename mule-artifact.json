@@ -1,0 +1,11 @@
+{
+  "minMuleVersion": "4.3.0",
+  "secureProperties":["masterKey","anypoint.platform.client_secret",
+	"secure::application.client_id",
+	"secure::application.client_secret",
+	"secure::csf-mq.client_id",
+	"secure::csf-mq.client_secret",
+	"secure::tls.keyPassword",
+	"secure::tls.password",
+	"secure::splunk.token"]
+}

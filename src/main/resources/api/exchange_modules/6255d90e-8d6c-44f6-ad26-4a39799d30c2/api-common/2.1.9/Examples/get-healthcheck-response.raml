@@ -1,0 +1,32 @@
+#=======================================================================
+# Generic Healthcheck Response
+# NamedExamples/get-healthcheck-response.raml
+# Date   : February 05, 2020
+# Author : RIEDEL
+# Rev    : 2
+#
+#  Audit History:
+#
+#   Rev Who   Date        Description
+#   --- ---   ----------- ----------------------------------------------
+#   001 RAR   05-Feb-2020 Initial creation
+#   002 RAR   09-Mar-2020 Removed some status options, leaving only
+#                         OK and ERROR.
+#   003 RAR   11-Mar-2020 Changed example from named example to a simple
+#                         fragment.
+#=======================================================================
+
+response:
+  application: an-application-name
+  buildversion: 1.0.0
+  buildTimestamp: 12/06/2010 00:01:00.111
+  host: 10.25.12.224
+  status: OK
+  tier: dev
+  systems:
+    - message: System 1 health check Ok.
+      name: system-1
+      status: OK   
+    - message: System 2 health check Ok.
+      name: system-2
+      status: OK

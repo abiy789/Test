@@ -1,0 +1,7 @@
+csf-mq:
+  client_id: "![MF7xUkEbm5OVBoySYMeYWHauROfp3AE7r4HuHH6GsJY6HrqnIZXcvw==]"
+  client_secret: "![kGqy0hPC6l/PVu4Esfh1RNMhg9nNqIt/I+Vjjz3wx5efDNktHydlBQ==]"
+ 
+tls:
+  keyPassword: "![OOiKXSnflCviBErhPq5RVw==]"
+  password: "![OOiKXSnflCviBErhPq5RVw==]"

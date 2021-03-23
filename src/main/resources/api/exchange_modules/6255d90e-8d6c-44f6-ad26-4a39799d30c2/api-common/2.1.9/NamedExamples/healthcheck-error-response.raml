@@ -1,0 +1,33 @@
+#%RAML 1.0 NamedExample
+#=======================================================================
+# Generic Healthcheck Response
+# NamedExamples/get-healthcheck-response.raml
+# Date   : February 05, 2020
+# Author : RIEDEL
+# Rev    : 1
+#  Audit History:
+#
+#   Rev Who   Date        Description
+#   --- ---   ----------- ----------------------------------------------
+#   001 RAR   11-Mar-2020 Initial creation
+#=======================================================================
+
+BasicErrorResponseExample:
+  status: "503"
+  message: Service unavailable.
+
+HealthCheckErrorResponseExample:
+  response:
+    application: an-application-name
+    buildversion: 1.0.0
+    buildTimestamp: 12/06/2010 00:01:00.111
+    host: 10.25.12.224
+    status: OK
+    tier: dev
+    systems:
+      - message: System 1 health check failed.
+        name: System 1
+        status: ERROR   
+      - message: System 2 health check Ok.
+        name: System 2
+        status: OK

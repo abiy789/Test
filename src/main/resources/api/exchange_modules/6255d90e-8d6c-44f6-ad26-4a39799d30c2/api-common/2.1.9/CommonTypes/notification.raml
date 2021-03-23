@@ -1,0 +1,146 @@
+#%RAML 1.0 DataType
+#=======================================================================
+# API Common - DataType - Log Entry
+# CommonTypes/log-entry.raml
+# Date  :April 02, 2020
+# Author:CCAPRIATI
+# Rev   :2
+#  Audit History:
+#
+#   Rev Who   Date        Description
+#   --- ---   ----------- ----------------------------------------------
+#   001 CC    02-Apr-2020 Initial creation
+#   002 RAR   06-Apr-2020 Dropped X-transaction-id (with camel case
+#                         issue and replaced it with correlationId
+#.  003 SAN   24-JUL-2020 update for additioanl properties, Channel properties and added tracepoint.
+#=======================================================================
+usage: For Notification 
+
+properties:
+  applicationName:
+    type: string
+    required: true
+  correlationId:
+    type: string
+    required: true
+    description: This is a required correlation unique identifier used for end-to-end transaction tracking. 
+  dateTime:
+    type: datetime
+    required: true
+    description: This is the date and time this request was issued.
+  encryptedLogMessage:
+    description: |
+      Signifies that the log message is encrypted when true. Otherwise log message is in plain text. Only applies to the message field.
+    type: boolean
+    required: false
+  environment:
+    type: string
+    required: true
+  message:
+    type: string
+    required: true
+    description: The associated log message.
+  severity:
+    type: string
+    enum:
+      - DEBUG
+      - ERROR
+      - INFO
+      - TRACE
+      - WARNING
+    required: true
+    default: INFO
+  errorInfo:
+    type: object
+    description: erroInfo is required only populating error message
+    properties:
+      errorCode:
+        description: Only used for severity level ERROR
+        type: string
+        required: true
+      errorDetails:
+        description: Only used for severity level ERROR
+        type: string
+        required: true
+      errorType:
+        description: Only used for severity level ERROR
+        type: string
+        required: true
+      errorCause:
+        type: object
+        properties:
+          description:
+            description: Error cause description
+            type: String
+            required: false
+          detailedDescription:
+            description: Error cause detailed description
+            type: String
+            required: false
+        required: false
+  externalChannels:
+    type: object
+    required: true
+    properties:
+      channelType:
+        type: enum
+        required: true
+        default: MULE_CH_ALERT
+        description: Channel Type.
+        enum:
+          - MULE_CH_ALERT
+          - SLACK
+          - SPLUNK
+      channelProperties:
+        type: array
+        required: false
+        items:
+          type: object
+          properties:
+            key:
+              description: name of channel property e.g. slackChannelName 
+              type: string
+              required: false
+            value:
+              description: value of channel property e.g. vps_prd_support
+              type: string
+              required: false
+  tracePoint:
+    type: string
+    required: false
+    description: The which part of API message is logged e.g. START, END etc..
+  locationInfo:
+    required: false
+    properties:
+      component:
+        type: string
+        required: false
+      fileName:
+        type: string
+        required: false        
+      lineInFile:
+        type: integer
+        required: false
+      location:
+        type: string
+        required: false
+      rootContainer:
+        type: string
+        required: false
+  additionalProperties:
+    type: array
+    required: false
+    items:
+      type: object
+      properties:
+        key:
+          description: name of additional property e.g. foxipediaId
+          type: string
+          required: false
+        value:
+          description: value of additional property e.g. XDSIK08998
+          type: string
+          required: false
+  additionalContent: 
+    type: any
+    required: false

@@ -1,0 +1,32 @@
+#%RAML 1.0 Library
+#=======================================================================
+# Common API Elements
+# standard-traits.raml
+# Date   : February 05, 2020
+# Author : RIEDEL
+# Rev    : 1
+#
+#  Audit History:
+#
+#   Rev Who   Date        Description
+#   --- ---   ----------- ----------------------------------------------
+#   001 RAR   05-Feb-2020 Initial creation
+#=======================================================================
+usage: Standard Traits for Use with Fox APIs
+
+traits:
+
+  pagination: !include Traits/standard-pagination-trait.raml
+
+  content-type-required: !include Traits/standard-content-type-required-trait.raml
+
+  accept-required: !include Traits/standard-accept-required-trait.raml
+
+  client-authorization-required: !include Traits/standard-client-authorization-required-trait.raml
+
+  client-authorization-header-required : !include Traits/standard-client-authorization-header-required-trait.raml
+  correlationid-required: !include Traits/standard-correlation-id-required-trait.raml
+
+  standard-error-responses: !include Traits/standard-error-responses-trait.raml
+
+  oauth2-authorization-required: !include Traits/standard-oauth2-authorization-required-trait.raml

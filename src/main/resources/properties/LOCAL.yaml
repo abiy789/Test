@@ -1,0 +1,29 @@
+https:
+  private:
+    port: "8092"
+http:
+    port: "8081"
+api:
+  autodiscoveryId: "16246999"
+csf:
+  defaultNotificationType: "none"
+  defaultTicketingEnableFlag: "false"
+  payloadLogging: "true"
+snow:
+  ci: "Fox Mulesoft"
+csf-mq:
+  host: "https://mq-us-west-2.anypoint.mulesoft.com/api/v1"
+  queueName: "dev-gryphon-common-framework-q"
+  
+amq:
+  host: "https://mq-us-west-2.anypoint.mulesoft.com/api/v1"
+  queueName: "dev-gryphon-schedule-crystal-updates-inbound-ex"
+application:
+  appName: "fox-crystal-backflow-exp-api"
+  
+splunk:
+  url: "https://http-inputs-foxgryphon.splunkcloud.com"
+  index: "mulesoft_dev_mb"
+  sourceType: "mulesoft_json"
+  cloudHubHost: "*.cloudhub.io"
+  disableCertificateValidation: "false"

@@ -1,0 +1,25 @@
+#%RAML 1.0 Trait
+#=======================================================================
+# Standard Pagination Query Parameters
+# Traits/standard-pagination-trait.raml
+# Date   : February 05, 2020
+# Author : RIEDEL
+# Rev    : 1
+#
+#  Audit History:
+#
+#   Rev Who   Date        Description
+#   --- ---   ----------- ----------------------------------------------
+#   001 RAR   05-Feb-2020 Initial creation
+#=======================================================================
+usage: Pagination trait used to specify and offset and limit for requests that return large amounts of information.
+queryParameters:
+  offset:
+    description: Skip over a number of elements by specifying an offset value for the query
+    type: integer
+    example: 1
+    default: 0
+  limit:
+    description: Limit the number of elements on the response
+    type: integer
+    example: 10

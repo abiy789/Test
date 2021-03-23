@@ -1,0 +1,163 @@
+#%RAML 1.0 DataType
+description: Use this type for crystal backflow Schedules
+type: object
+properties:
+  lastUpdatedUtc:
+    type: datetime
+    required: false
+    description: Last updated timestamp of the record in UTC
+    example: 2019-02-28T16:41:41.090Z  
+  createdDateUtc:
+    type: datetime
+    required: false
+    description: Created Date in UTC format
+    example: 2016-02-28T16:41:41.090Z
+  scheduledAiringId:
+    type: string
+    required: true
+    description: Unique ID per Schedule.This is also called as AiringID/schedulingID
+    example: '15758196'
+  programFoxipediaId:
+    type: string
+    required: false
+    description: The Foxipedia ID of the scheduled program
+    example: 'SER000594PPMW'
+  scheduledAiringNetworkCallLetter:
+    type: string
+    required: true
+    description: Call letter associated with Network
+    example: 'BTN'
+  scheduledAiringNetworkName:
+    type: string
+    required: false
+    description: Program Network Name
+    example: 'Big Ten Network'
+  scheduledAiringNetworkShortName:
+    type: string
+    required: false
+    description: Program Network Short Name
+    example: 'Big 10'
+  seasonFoxipediaId:
+    type: string
+    required: false
+    description: The Foxipedia ID of the scheduled Season
+    example: 'SEA000599PPMW'
+  episodeFoxipediaId:
+    type: string
+    required: false
+    description: The Foxipedia ID of the scheduled Episode(conditionally required)
+    example: 'EPI006964PPMW'
+  deliveryMethod:
+    type: string
+    required: false
+    description: Delivery method like disc,fiber,satellite etc
+    example: 'Fiber'
+  broadcastAirDate:
+    type: datetime
+    required: false
+    description: AiringDatetime in Broadcastdate format UTC
+    example: 2016-02-28T16:41:41.090Z
+  scheduledAiringStartTimeUTC:
+    type: datetime
+    required: true
+    description: UTC Timestamp marking the beginning of the schedule
+    example: 2018-08-31T22:00:00.000Z
+  scheduledAiringDuration:
+    type: string
+    required: true
+    description: Duration of the Schedule in milliseconds
+    example: '1800000'   
+  fillTime:
+    type: number
+    required: false
+    description: Fill time is the gap between airing and the next airing
+    example: 1800
+  closedCaptioning:
+    type: string
+    required: false
+    description: Indicates whether this airing has CC option
+    example: 'yes'
+  live: 
+    type: string
+    required: false
+    description: Identifies if the Program is live or not (conditionally required)
+    example: 'true'
+  territoryNames:
+    type: array
+    required: false
+    description: Territories assicoated with the Geofencing/Audience policies
+    example: ["Territory name1", "Territory name2"]
+  format:
+    type: string
+    required: false
+    description: Program Format
+    example: 'HD/HD 1010'
+  fsnFormatName: 
+    type: string
+    required: false
+    description: 'Name used to fetch additional format data'
+    example: ''
+  materialID:
+    type: string
+    required: true    
+    description: ID associated with asset. Also called as HouseNumber/trafficCode/MatID in upstream systems
+    example: 'F12AMD1096' 
+  programSupplier:
+    type: string
+    required: false
+    description: Entity who supplies the particular program
+    example: 'Fox Soccer Channel'
+  sap:
+    type: string
+    required: false
+    description: Secondary Audio Programming
+    example: 'Audio Description'
+  dvs:
+    type: string
+    required: false
+    description: Descriptive Video Services
+    example: 'yes'
+  scheduledAiringLogType:
+    type: string
+    required: false
+    description: Specifies whether this is Primary schedule or Alternate/Contingent Schedule (conditionally required)
+    example: 'Primary'
+  status:
+    type: string
+    required: false
+    description: Field work in progress. To be updated later
+    example: 'active'
+  scheduledAiringJoinInProgress:
+    type: boolean
+    required: false
+    description: Flag that indicates if join in progress is allowed for this particular schedule
+    example: false
+  updateType:
+    type: string
+    required: true
+    description: This attribute specifies if the schedule was added/Deleted/updated in Evertz
+    example: 'Delete/Added/Modified'   
+  tmsId:
+    type: string
+    required: true
+    description: The TMS ID(Gracenote id) of the scheduled program from crystal
+    example: 'SH007685450000'
+  Path:
+    type: number
+    required: false
+    description: Path specifying the source for FoxNet(conditionally required)
+    example: 1007
+  programTitle:
+    type: string
+    required: true
+    description: Program Title
+    example: 'Big Ten Elite'
+  programDescription:
+    type: string
+    required: false
+    description: Program Description or Lengthy Synopsis of the program. This can be the description of the title or the program
+    example: 'Germanys premier soccer league. Delayed matches coming from FOX Sports 1'
+
+example: !include crystal-backflow-schedule-example.raml
+ 
+    

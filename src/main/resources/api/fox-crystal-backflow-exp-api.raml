@@ -1,0 +1,61 @@
+#%RAML 1.0
+title: fox-crystal-backflow-exp.api
+protocols: [ HTTPS ]
+mediaType: [ application/json ]
+version: 1.0
+
+
+securedBy: [ oauth_2_0 ]
+ 
+securitySchemes:
+  oauth_2_0: !include exchange_modules/6255d90e-8d6c-44f6-ad26-4a39799d30c2/api-common/2.1.9/SecuritySchemes/standard-security-oauth2-scheme.raml
+
+uses:
+  generic-response: exchange_modules/6255d90e-8d6c-44f6-ad26-4a39799d30c2/api-common/2.1.9/CommonTypes/generic-response-body.raml
+
+traits:
+ error-response: !include exchange_modules/6255d90e-8d6c-44f6-ad26-4a39799d30c2/api-common/2.1.9/Traits/standard-error-responses-trait.raml
+/ping:
+  get:
+    description: Return a standard response.
+    
+    responses:
+      200:
+        body:
+          application/json:
+            example: {"status":"200","message":"Available"}
+/healthcheck:
+  get:
+    description: Check connection health to all the API downstream dependencies 
+    
+    responses:
+      200:
+        body:
+          application/json:
+            example: {"status":"200","message":"Alive"}
+/schedules:
+  post:
+    is : [error-response]
+    displayName: schedules
+    description:  create schedules
+    body:
+      application/json:
+        type: !include exchange_modules/62eff3f2-eb60-4e73-9082-6ad8d060649b/crystal-backflow-schedule-datatype/1.0.8/crystal-backflow-schedule-datatype.raml
+        example: !include exchange_modules/62eff3f2-eb60-4e73-9082-6ad8d060649b/crystal-backflow-schedule-datatype/1.0.8/crystal-backflow-schedule-example.raml
+            
+    responses:
+      202:
+        body:
+          application/json:
+            type: generic-response.GenericResponseBody
+            example: !include examples/generic-response.json
+              
+
+          
+          
+                   
+  
+
+            
+
+  

@@ -1,0 +1,20 @@
+#%RAML 1.0 Library
+#=======================================================================
+# Common API Elements
+# standard-security.raml
+# Date   : February 05, 2020
+# Author : RIEDEL
+# Rev    : 2
+#
+#  Audit History:
+#
+#   Rev Who   Date        Description
+#   --- ---   ----------- ----------------------------------------------
+#   001 RAR   05-Feb-2020 Initial creation
+#   002 BYK   16-Apr-2020 Added Oauth 2.0 security scheme
+#=======================================================================
+usage: Standard Security Schemes
+
+securitySchemes: 
+  basic: !include SecuritySchemes/standard-security-scheme.raml
+  oauth_2_0: !include SecuritySchemes/standard-security-oauth2-scheme.raml
